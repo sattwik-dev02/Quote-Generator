@@ -1,0 +1,1 @@
+# Generate new code with each click on "New Quote"!
