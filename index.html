@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote of the day</title>
+    <title>Quote of The Day</title>
+    <link rel="shortcut icon" href="/images/quote-left-icon.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <div class="quote-box">
-        <h2>Quote of the day</h2>
+        <h2>Quote of The Day</h2>
         <blockquote id="quote">Loading...</blockquote>
         <span id="author">Loading...</span>
-        <div>
+        <div class="type"><b>Tags(type): </b><span class="tag"></span></div>
+        <div class="buttons">
             <button onclick="getquote(api_url)">New Quote</button>
-            <button onclick="tweet()"><img src="x-logo.png">Tweet</button>
-            <button onclick="whatsapp()"><img src="whatsapp-logo2.png" class="whatsapp-icon">WhatsApp</button>
+            <button onclick="tweet()"><img src="/images/x-logo.png">Tweet</button>
+            <button onclick="whatsapp()"><img src="/images/whatsapp-logo2.png">WhatsApp</button>
         </div>
     </div>
 
     <script>
         const quote=document.getElementById("quote");
         const author=document.getElementById("author");
-        const api_url="https://quotes-api-self.vercel.app/quote";
+        const tags=document.querySelector(".tag");
+        //const api_url="https://quotes-api-self.vercel.app/quote";
+        const api_url="https://api.quotable.io/quotes/random?tags=technology|motivational";
 
         async function getquote(url) {
             const response=await fetch(url);
-            var data=await response.json();
-            quote.innerHTML=data.quote;
-            author.innerHTML=data.author;
-            //console.log(data);
+            const data=await response.json();
+            quote.innerHTML=data[0].content;
+            author.innerHTML=data[0].author;
+            tags.innerHTML=data[0].tags;
+            console.log(data[0].content+" -"+data[0].author);
         }
         getquote(api_url);
 
