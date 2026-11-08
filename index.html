@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <link rel="shortcut icon" href="./images/quote-left-icon.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+    <button class="mode" onclick="toggleTheme()">🌙 Dark Mode</button>
     <div class="quote-box">
         <h2>Quote of The Day</h2>
         <blockquote id="quote">Loading...</blockquote>
@@ -22,29 +24,47 @@
     </div>
 
     <script>
-        const quote=document.getElementById("quote");
-        const author=document.getElementById("author");
-        const tags=document.querySelector(".tag");
+        const quote = document.getElementById("quote");
+        const author = document.getElementById("author");
+        const tags = document.querySelector(".tag");
         //const api_url="https://quotes-api-self.vercel.app/quote";
-        const api_url="https://api.quotable.io/quotes/random?tags=technology|motivational";
+        // const api_url = "https://api.quotable.io/quotes/random?tags=technology|motivational";
+        const api_url = "https://motivational-spark-api.vercel.app/api/quotes/random";
+        // Using a CORS proxy to avoid CORS error
+        // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+        function toggleTheme() {
+            document.querySelector(".quote-box").classList.toggle("dark");
+        }
 
         async function getquote(url) {
-            const response=await fetch(url);
-            const data=await response.json();
-            quote.innerHTML=data[0].content;
-            author.innerHTML=data[0].author;
-            tags.innerHTML=data[0].tags;
-            console.log(data[0].content+" -"+data[0].author);
+            try {
+                quote.innerText = "Loading...";
+                author.innerText = "Loading...";
+                const response = await fetch(url);
+                const data = await response.json();
+                const actualData = data;
+                quote.innerHTML = actualData.quote;
+                author.innerHTML = actualData.author;
+                // tags.innerHTML = data[0].tags;
+                tags.innerHTML = "None";
+                console.log(actualData.quote + " -" + actualData.author);
+            } catch (error) {
+                quote.innerText = "Failed to load quote.";
+                author.innerText = "";
+                console.error("Error occured:", error);
+            }
         }
         getquote(api_url);
 
         function tweet() {
-            window.open("https://twitter.com/intent/tweet?text="+quote.innerHTML+" ---- by "+author.innerHTML, "X Share Window", "width=600, height=300");
+            window.open("https://twitter.com/intent/tweet?text=" + quote.innerHTML + " ---- by " + author.innerHTML, "X Share Window", "width=600, height=300");
         }
         function whatsapp() {
-            window.open("https://wa.me/?text="+quote.innerHTML+" ---- by "+author.innerHTML, "Whats App Share Window", "width=600, height=300");
+            window.open("https://wa.me/?text=" + quote.innerHTML + " ---- by " + author.innerHTML, "Whats App Share Window", "width=600, height=400");
         }
     </script>
 
 </body>
+
 </html>

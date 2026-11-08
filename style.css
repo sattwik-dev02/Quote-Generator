@@ -106,12 +106,12 @@ body {
 }
 
 .quote-box button:nth-child(2) {
-    background: transparent;
+    background: white;
     color: black;
 }
 
 .quote-box button:nth-child(3) {
-    background: transparent;
+    background: white;
     color: black;
 }
 
@@ -123,4 +123,29 @@ body {
 .quote-box button:nth-child(2):hover,
 .quote-box button:nth-child(3):hover {
     background-color: lightsteelblue;
+}
+
+.mode {
+    outline: none;
+    cursor: pointer;
+    font-size: 22px;
+    text-align: end;
+    background-color: white;
+    padding: 5px;
+    padding-right: 7px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 15px 15px;
+    position: absolute;
+    right: 0px;
+}
+
+.mode:hover {
+    background-color: black;
+    color: white;
+}
+
+.dark {
+  background: #121212;
+  color: white;
 }
